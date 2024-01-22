@@ -129,6 +129,7 @@ class Frame(tk.Frame):
     def tabla_Sgenda(self):
         
         self.lista_agenda = listar()
+        self.lista_agenda.reverse()
         
         
         
