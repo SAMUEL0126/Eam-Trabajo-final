@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 from model.agenda_dao import crear_tabla , borrar_tabla
-
+from model.agenda_dao import Agenda , guardar , listar
 def barra_menu(root):
     barra_menu = tk.Menu(root)
     root.config(menu = barra_menu,width = 300 , height = 300)
@@ -115,9 +115,23 @@ class Frame(tk.Frame):
         
     def guardar_datos(self):
         
+        agenda = Agenda(
+           self.mi_nombre.get(),
+           self.mi_correo.get(),
+           self.mi_cedula.get(),
+           self.mi_telefono.get()
+        )
+        
+        guardar(agenda)
+        
         self.deshabilitar_campos()
         
     def tabla_Sgenda(self):
+        
+        self.lista_agenda = listar()
+        
+        
+        
         self.tabla = ttk.Treeview(self,columns=('Nombre','Identificacion','Correo','Telefono'))
         
         self.tabla.grid(row=4,column=0,columnspan=4) 
@@ -127,7 +141,8 @@ class Frame(tk.Frame):
         self.tabla.heading('#2',text='CORREO')  
         self.tabla.heading('#3',text='TELEFONO')       
         
-        self.tabla.insert('',0,text='1115358031',values=('Samuel Lopez','samuelelrey0126yt@gmail.com','3014427808'))
+        for i in self.label_nombre:
+            self.tabla.insert('',0,text=i[0],values=(i[1],i[2],i[3]))
         
            
         self.boton_Editar = tk.Button(self, text="Editar",)
