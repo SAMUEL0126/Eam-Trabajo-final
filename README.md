@@ -1,5 +1,5 @@
 
-<h1>Trabajo Final Electiva 1 Eam.</h1>
+<h1>Trabajo Final Electiva (Python) 1 Eam.</h1>
 <hr></hr>
 <h3>YT</h3>
 <img src="/Agenda digital/img/Captura.PNG" alt="...">
