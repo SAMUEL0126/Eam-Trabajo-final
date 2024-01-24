@@ -1,7 +1,7 @@
 import tkinter as tk
-from tkinter import ttk
+from tkinter import ttk , messagebox
 from model.agenda_dao import crear_tabla , borrar_tabla
-from model.agenda_dao import Agenda , guardar , listar
+from model.agenda_dao import Agenda , guardar , listar , editar , eliminar
 def barra_menu(root):
     barra_menu = tk.Menu(root)
     root.config(menu = barra_menu,width = 300 , height = 300)
@@ -22,7 +22,7 @@ class Frame(tk.Frame):
         super().__init__(root,width = 500, height = 500)
         self.root = root
         self.pack()
-        
+        self.identificacion = None
         self.config (bg = 'White')
         self.campo_nombre()
         self.deshabilitar_campos()
@@ -121,8 +121,12 @@ class Frame(tk.Frame):
            self.mi_cedula.get(),
            self.mi_telefono.get()
         )
+        if self.identificacion == None:
+            guardar(agenda)
+        else:
+            editar(agenda, self.identificacion)
         
-        guardar(agenda)
+        self.tabla_Sgenda()
         
         self.deshabilitar_campos()
         
@@ -135,7 +139,14 @@ class Frame(tk.Frame):
         
         self.tabla = ttk.Treeview(self,columns=('Nombre','Identificacion','Correo','Telefono'))
         
-        self.tabla.grid(row=4,column=0,columnspan=4) 
+        self.tabla.grid(row=4,column=0,columnspan=4,sticky='nse') 
+        
+        
+        self.scroll = ttk.Scrollbar(self,
+                                    orient='vertical',command=self.tabla.yview)
+        
+        self.scroll.grid(row=4,column=4,sticky='nse')
+        self.tabla.configure(yscrollcommand=self.scroll.set)
         
         self.tabla.heading('#0',text='ID')        
         self.tabla.heading('#1',text='NOMBRE')  
@@ -146,12 +157,53 @@ class Frame(tk.Frame):
             self.tabla.insert('',0,text=i[0],values=(i[1],i[2],i[3]))
         
            
-        self.boton_Editar = tk.Button(self, text="Editar",)
+        self.boton_Editar = tk.Button(self, text="Editar",command=self.editar_datos)
         self.boton_Editar.config(width=20,font=('Arial',12,'bold'),fg='white',bg = '#158645',cursor= 'hand2',activebackground='lime')
         self.boton_Editar.grid(row=5,column=0,padx=10,pady = 10)
         
         
            
-        self.boton_Eliminar = tk.Button(self, text="Eliminar",)
+        self.boton_Eliminar = tk.Button(self, text="Eliminar",command=self.eliminmar_datos)
         self.boton_Eliminar.config(width=20,font=('Arial',12,'bold'),fg='white', bg = '#BD152E',cursor= 'hand2', activebackground='#E15370')
         self.boton_Eliminar.grid(row=5,column=1,padx=10,pady = 10)
+        
+    def editar_datos(self):
+        try:
+            self.identificacion = self.tabla.item(self.tabla.selection())['text']
+            self.mi_nombre = self.tabla.item(
+                self.tabla.selection()
+            )['values'][0]
+            self.mi_correo = self.tabla.item(
+                self.tabla.selection()
+            )['values'][1]
+            self.mi_cedula = self.tabla.item(
+                self.tabla.selection()
+            )['values'][2]
+            self.mi_telefono = self.tabla.item(
+                self.tabla.selection()
+            )['values'][3]
+            
+            self.Habilitar_Campos()
+            
+            self.entry_Nombre.insert(0,self.mi_nombre)
+            self.entry_Cedula.insert(2,self.mi_cedula)
+            self.entry_Correo.insert(1,self.mi_correo)
+            self.entry_Telefono.insert(3,self.mi_telefono)
+               
+        except:
+            titulo = 'Edicion de datos'
+            mensaje = 'No ah seleccionado ningun registro'
+            messagebox.showerror(titulo,mensaje)
+    
+    def eliminmar_datos(self):
+        try:
+            self.identificacion = self.tabla.item(self.tabla.selection())['text']
+            eliminar(self.identificacion)
+            self.tabla_Sgenda()
+            self.identificacion = None
+        except:
+            titulo = 'Eliminar un registro'
+            mensaje = 'No ha seleccionado ningun registro'
+            messagebox.showerror(titulo,mensaje)
+        
+    

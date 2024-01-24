@@ -78,3 +78,34 @@ def listar():
         messagebox.showwarning(titulo,mensaje)
         
     return lista_Agenda
+
+def editar(agenda,identificacion):
+    conexion = ConexionDB()
+    
+    sql = f"""UPDATE agenda
+    SET nombre = '{agenda.nombre}',correo = '{agenda.correo}',
+    telefono = '{agenda.telefono}', cedula = '{agenda.cedula}'
+    WHERE identificacion = {identificacion}
+    """
+    
+    try:
+        conexion.cursor.execute(sql)
+        conexion.cerrar()
+    except:
+        titulo = 'Edicicon de datos'
+        mensaje = 'No se apodido editar este registro'
+        messagebox.showerror(titulo,mensaje)
+        
+        
+def eliminar(identificacion):
+    
+    conexion = ConexionDB()
+    sql = f'DELETE FROM agenda WHERE identificacion = {identificacion}'
+    
+    try:
+        conexion.cursor.execute(sql)
+        conexion.cerrar()
+    except:
+        titulo = 'Eliminar Datos'
+        mensaje = 'No se pudo eliminar el registro'
+        messagebox.showerror(titulo,mensaje)
