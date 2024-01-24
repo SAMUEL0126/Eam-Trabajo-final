@@ -1,7 +1,7 @@
 
 <h1>Trabajo Final Electiva 1 (Python) Eam.</h1>
 <hr></hr>
-<h3>YT INTERFAZ</h3>
+<h3>YOUTUBE INTERFAZ</h3>
 <img src="/Agenda digital/img/Captura.PNG" alt="...">
 <hr></hr>
 <h3>VISUAL STUDIO CODE</h3>
