@@ -1,7 +1,5 @@
-Trabajo final de Electiva 1 Eam 
+<h2>Trabajo Final electiva 1.</h2>
+<hr></hr>
+<img src="/Agenda digital/img/Captura.PNG" alt="...">
 
--Python
--Tkinter
--Sql
--Entorno virtual
 
