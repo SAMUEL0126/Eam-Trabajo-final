@@ -4,5 +4,5 @@
 <hr></hr>
 <img src="/Agenda digital/img/CapturaVisual.PNG" alt="...">
 <hr></hr>
-<img src="/Agenda digital/img/CapturaBasedeDatosPNG"alt="...">
+<img src="/Agenda digital/img/CapturaBasedeDatos.PNG" alt="...">
 <hr></hr>
